@@ -1,5 +1,7 @@
 # SWDV-691-Project-app
 This repo is created for my Bill Tracker application project and it describes the purpose of the application.
+This repository has 2 separate projects, one for development of user interface and another for development of service layers.
+Backlog items were created for both of the projects which are catergorized as stories and tasks.
 Bill Tracker web application let users enter all their monthly bills, what amount they owe, when the bill is due and what account user usually pay with. 
 It will let users know if the amount of your bill change each month. 
 The Bill Tracker web application lets user easily change the amount of the bill when they know the new amount due.
