@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <!-- Site theme -->
+   
+    <!-- jquery -->
+    <link href="https://code.jquery.com/ui/1.9.1/themes/smoothness/jquery-ui.css">
+
+    <style>
+      
+/* fonts*/
+@import url('https://fonts.googleapis.com/css?family=Rajdhani:300,400,500,600,700');
+@import url('https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+@import url('https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap');
+
+body {
+     color: #FF4D00;
+     font-size: 14px;
+     font-family: Poppins  !important;
+     font-family: Rajdhani; 
+     font-family: 'Syne Mono', monospace;
+     line-height: 1.80857;
+     font-weight: normal;
+     overflow-x: hidden;
+}
+.container {
+    
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.email_box {
+    width: 85%;
+    float: right;
+    background-color: #14120e;
+    height: auto;
+    padding: 20px 20px;
+    opacity: 0.80;
+}
+
+.header_main{
+	background-color: #0c0116;  
+	color:#BEDF26 !important
+}
+
+
+.navbar-brand {
+	color:#BEDF26 !important;
+	 font-size: 25px;
+     
+
+}
+nav .navbar-nav li{
+ color:#BEDF26 !important;
+  
+
+  }
+
+  .nav-link{
+  	 color:#BEDF26 !important;
+  	 font-size: 20px;
+  }
+.send_btn button{
+
+   
+		background-color:#BEDF26 ;
+		text-align: center;
+		color: white;
+   
+}
+
+.btn_design button{
+
+background-color:#BEDF26 ;
+
+  margin-bottom: 20px;
+    text-align: center;
+    color: white;
+  
+}
+
+.page-header h2{
+	color:#BEDF26 !important;
+   
+
+ }
+
+ .square {
+  height: 200px;
+  width: 200px;
+  
+}
+ #a{
+
+  background-color: #BEDF26;
+}
+
+ #b{
+ 
+  background-color: #FF4D00;
+}
+ #c{
+ 
+  background-color: #0c0116;
+}
+
+
+    </style>
+    
+  </head>
+  <body>
+    <div class="header">
+   <nav id="navbar-2" class="navbar header_main  px-3" style=" ">
+  <a class="navbar-brand" href="#"><b>Bill tracker</b></a>
+  <ul class="nav">
+    <li class="nav-item">
+      <a class="nav-link" href="#first">Font</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#secound">Color Theme</a>
+    </li>
+   <li class="nav-item">
+      <a class="nav-link" href="#third">Heading</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#fourth">Buttons</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#fifth">Form Elements</a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" href="#sixth">Messages</a>
+    </li>
+  </ul>
+</nav>
+<div class="container">
+  <div class="row">    <!-- About -->
+            <div>
+                <div class="page-header">
+                    <h2>
+                        <a name="about"></a>My Styles</h2>
+                </div>
+                <b><p>This page contains specific style guide information for my front end interface.</p></b>
+            </div>
+            <!-- End About -->
+  <div data-bs-spy="scroll" data-bs-target="#navbar-2" data-bs-offset="0" tabindex="0">
+  
+      <!-- Fonts -->
+         <div id="first">
+                <div class="page-header">
+               <span class="border-bottom border-dark">
+                    <h2 class="">
+                        <a name="fonts"></a>Font</h2>
+                </span>
+                </div>
+                <b>My application utilizes the</b>
+                <ul>
+                   <li>
+                    <p> Poppins font-family with black text.</p>
+                   </li>
+                    <li>
+                    <p> Rajdhani font-family with black text.</p>
+                   </li>
+                      <li>
+                    <p> Syne Mono font-family with black text.</p>
+                   </li>
+                 </ul> 
+            
+        </div>
+           
+            <!-- End Fonts -->
+            <hr>
+<button type="submit" class="btn-info btn" id="done1">Back to top</button>
+   <hr>
+              <!-- Color Theme -->
+            <div id="secound">
+                <div class="page-header">
+                    <h2>
+                        <a name="colorTheme"></a>Color Theme</h2>
+                </div>
+               <b><p>My application incorporates the below color scheme in its interface.</p></b> 
+                <div class="row">
+                    <div class="col-xl-4">
+                           <div class="card" style="width: 18rem;">
+                              <div class="square " id="a"></div>
+                                  <div class="card-body">
+                                 <p class="card-text">Color code:#BEDF26.</p>
+                                 </div>
+                           </div>
+                    </div>
+                      <div class="col-xl-4">
+                           <div class="card" style="width: 18rem;">
+                             <div class="square" id="b"></div>
+                                  <div class="card-body">
+                                 <p class="card-text">Color code:#FF4D00.</p>
+                                 </div>
+                           </div>
+                    </div>
+                     <div class="col-xl-4">
+                           <div class="card" style="width: 18rem;">
+                             <div class="square" id="c"></div>
+                                  <div class="card-body">
+                                 <p class="card-text">Color code:#0c0116.</p>
+                                 </div>
+                           </div>
+                    </div>
+                     
+                </div>
+         
+            </div>
+            <hr>
+           <button type="submit" class="btn-info btn" id="done2">Back to top</button>
+           <hr>
+            <!-- End Color Theme -->
+              <!-- Headings -->
+            <div id="third">
+                <div class="page-header">
+                    <h2><a name="headings"></a>Headings</h2>
+                </div>
+                <b><p>The below font sizes and styles are used in the application for various content headings.</p></b>
+                <h1>Heading 1</h1>
+                <h2>Heading 2</h2>
+                <h3>Heading 3</h3>
+               
+            </div>
+            <hr>
+            <button type="submit" class="btn-info btn" id="done3">Back to top</button>
+            <hr>
+            <!-- End Headings -->
+              <!-- Buttons -->
+            <div id="fourth">
+                <div class="page-header">
+                    <h2>
+                        <a name="buttons"></a>Buttons</h2>
+                </div>
+                <b><p>The application will feature buttons that contain the below color and shape:</p></b>
+                <div class="btn_design">
+                   <button class=" form-control w-25">My Button 1</button>
+                </div>
+                  <div class="">
+                   <button class="btn-dark btn form-control w-25">My Button 2</button>
+                </div>
+               
+            </div>
+            <hr>
+           <button type="submit" class="btn-info btn" id="done4">Back to top</button>
+            <hr>
+            <!-- End Buttons -->
+                  <!-- Form Elements -->
+            <div id="fifth">
+                <div class="page-header">
+                    <h2>
+                        <a name="formElements"></a>Form Elements</h2>
+                </div>
+                <b><p>For the varous forms that the application will contain, it will contain input fields and labels with the below styling:</p></b>
+                <div class="row">
+                  <div class="col-xl-6 container">
+                     <div class="email_box">
+                   <form action="#">
+                            <div class="form-group p-1">
+                              <input type="text" class="email-bt form-control" placeholder="Name" name="Name">
+                            </div>
+                            <div class="form-group p-1">
+                              <input type="text" class="email-bt form-control" placeholder="Phone Numbar" name="Name">
+                            </div>
+                            <div class="form-group p-1">
+                              <input type="text" class="email-bt form-control" placeholder="Email" name="Email">
+                            </div>
+                            
+                            <div class="form-group p-1 ">
+                                <textarea class="massage-bt form-control" placeholder="Massage" rows="5" id="comment" name="Massage"></textarea>
+                            </div>
+                             <div class="send_btn" align="center">
+                                  <button type="" class="form-control m-auto  w-25" p-1>Send</button>
+                             </div>
+                      
+                          </form>   
+
+            </div>
+                  </div>
+                  
+                </div>
+               
+          </div>
+          <hr>
+        <button type="submit" class="btn-info btn" id="done5">Back to top</button>
+            <hr>
+            <!-- End Form Elements -->
+              <!-- User Messages -->
+            <div id="sixth">
+                <div class="page-header">
+                    <h2>
+                        <a name="messages"></a>Messages</h2>
+                </div>
+                <b><p>For various completed tasks, application notifications will be presented to the user based.  The following contextual messages will be used.</p></b>
+                      <div class="alert alert-primary" role="alert">
+                        A simple primary alert
+                      </div>
+                
+                      <div class="alert alert-success" role="alert">
+                        A simple success alert
+                      </div>
+                      <div class="alert alert-danger" role="alert">
+                        A simple danger alert
+                      </div>
+                      <div class="alert alert-warning" role="alert">
+                        A simple warning alert
+                      </div>
+                      
+           
+            </div>
+          <!-- <button class="btn btn-info btn-sm" type="submit" id="done">Back to Top</button> -->
+            <!-- End User Messages -->
+          </div>
+         <!--  end of scroll -->
+          </div>
+     <!-- end of row -->
+     <hr>
+     <button type="submit" class="btn-info btn" id="done6">Back to top</button>
+      <br><br>
+</div>
+<div class="copyright text-justify bg-dark p-3" align="center"><b>&copy; 2021 All Rights Reserved. Bill tracker</b></a></div>
+</div>
+
+
+      
+    </div>
+
+
+ 
+
+
+
+
+
+
+
+
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+   <script src="https://code.jquery.com/ui/1.9.1/jquery-ui.js" integrity="sha256-tXuytmakTtXe6NCDgoePBXiKe1gB+VA3xRvyBs/sq94=" crossorigin="anonymous"></script>
+   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+   <script type="text/javascript">
+     $(document).ready(function() {
+       $("#done1").click(function(event) {
+         
+           $("html, body").animate({scrollTop: 0}, 10);
+                });
+        $("#done2").click(function(event) {
+         
+           $("html, body").animate({scrollTop: 0}, 10);
+                });
+         $("#done3").click(function(event) {
+         
+           $("html, body").animate({scrollTop: 0}, 10);
+                });
+          $("#done4").click(function(event) {
+         
+           $("html, body").animate({scrollTop: 0}, 10);
+                });
+           $("#done5").click(function(event) {
+         
+           $("html, body").animate({scrollTop: 0}, 10);
+                });
+            $("#done6").click(function(event) {
+         
+           $("html, body").animate({scrollTop: 0}, 10);
+                });
+     });
+   </script>
+
+
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
+    
+  </body>
+</html>
