@@ -1,5 +1,6 @@
 <template>
-  <div class="">
+
+  <div class="a">
     <!-- <h1>{{ msg }}</h1> -->
     
     
@@ -79,7 +80,7 @@ export default {
              "password":this.password
          });
      console.log(response);
-     this.$router.push('/login');
+     this.$router.push('/dashhome');
      }
      
 
@@ -89,6 +90,14 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.a{
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 56px;
+}
 h3 {
   margin: 40px 0 0;
 }

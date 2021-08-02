@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="a">
     <!-- <h1>{{ msg }}</h1> -->
 
     <div class="container-fluid">
@@ -184,6 +184,14 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.a{
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 80px;
+}
 h3 {
   margin: 40px 0 0;
 }
