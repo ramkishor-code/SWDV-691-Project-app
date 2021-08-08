@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\billing_detail;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,11 +27,17 @@ Route::group([
     Route::post('login', [AuthController::class,'login']);
     Route::post('signup', [AuthController::class,'signup']);
 
-    Route::group([
-      'middleware' => 'auth:api'
-    ], function() {
-        Route::get('logout', [AuthController::class,'logout']);
-        Route::get('user', [AuthController::class,'user']);
-    });
     //Route::get('/home', [HomeController::class,'index'])->name('home');
 });
+
+Route::group([
+    'middleware' => 'auth:api'
+  ], function() {
+      Route::get('logout', [AuthController::class,'logout']);
+      Route::get('user', [AuthController::class,'user']);
+      Route::get('bill/show/{id}', [billing_detail::class, 'showbill']);
+      Route::post('bill/create', [billing_detail::class, 'createbill']);
+      Route::post('bill/edit',[billing_detail::class, 'editbill']);
+      Route::get('bill/delete/{id}',[billing_detail::class, 'deletebill']);
+
+  });
