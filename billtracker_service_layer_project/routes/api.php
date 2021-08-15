@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\billing_detail;
+use App\Http\Controllers\pending_bills;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +17,7 @@ use App\Http\Controllers\billing_detail;
 |
 */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+
 
 
 Route::group([
@@ -35,9 +34,21 @@ Route::group([
   ], function() {
       Route::get('logout', [AuthController::class,'logout']);
       Route::get('user', [AuthController::class,'user']);
+
+      //billing details crud
       Route::get('bill/show/{id}', [billing_detail::class, 'showbill']);
+      Route::get('bill/showall/{userid}', [billing_detail::class, 'showallbill']);
       Route::post('bill/create', [billing_detail::class, 'createbill']);
       Route::post('bill/edit',[billing_detail::class, 'editbill']);
       Route::get('bill/delete/{id}',[billing_detail::class, 'deletebill']);
 
+
+
+   
+
+   
+     
   });
+ //dashboard
+  Route::get('dashboard/upcoming/{userid}',[pending_bills::class, 'show_upcoming_bill']);
+  Route::get('bill/category',[billing_detail::class, 'category']);

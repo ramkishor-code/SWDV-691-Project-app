@@ -15,7 +15,7 @@ class BillingDetail extends Migration
     public function up()
     {
         
-        Schema::create('billing_detail', function (Blueprint $table) {
+        Schema::create('billing_details', function (Blueprint $table) {
             $table->integer('bill_id',10)->primary()->autoIncrement();
             $table->unsignedInteger('user_id');
             $table->string('bill_name',50);
