@@ -4,9 +4,9 @@
     <!-- <h1>{{ msg }}</h1> -->
     
     
-        <div class="container-fluid ">
+        <div class="container-fluid  ">
     <div class="card border-0">
-        <div class="row d-flex">
+        <div class="row d-flex ex">
             <div class="col-lg-6">
                 <div class="card1 pb-1">
                     <div class="row"> <img alt="Vue logo" src="../assets/logo.png" class="logo"> </div>
@@ -47,7 +47,7 @@
                 </div>
             </div>
         </div>
-         <div class="bg-blue mt-5  p-4" style="margin:0px">
+         <div class="bg-blue mt-5  p-4" >
             <div class="row">
               <div class="col-6"><small class="ml-auto mr-auto">Copyright &copy; 2021. All rights reserved.</small></div>
               <div class="col-6"> 
@@ -95,7 +95,9 @@ export default {
          'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',} });
        localStorage.setItem('user',res.data.id)
-     this.$router.push('/dashhome');
+       localStorage.setItem('username',res.data.name)
+       console.log(res.data.name)
+     this.$router.push('/home');
      }
      
 
@@ -112,6 +114,12 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 56px;
+  
+  
+  
+}
+.ex{
+height: 80vh;
 }
 h3 {
   margin: 40px 0 0;

@@ -10,8 +10,13 @@ import { BForm } from 'bootstrap-vue'
 
 Vue.component('b-form', BForm)
 Vue.use(FormPlugin)
+import VueToast from 'vue-toast-notification';
+// Import one of the available themes
+//import 'vue-toast-notification/dist/theme-default.css';
+import 'vue-toast-notification/dist/theme-sugar.css';
 Vue.config.productionTip = false
 
+Vue.use(VueToast);
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)

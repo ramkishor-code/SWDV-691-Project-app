@@ -11,12 +11,15 @@
 
 <script>
 // import Login from './components/Login.vue'
+require("bootstrap-css-only/css/bootstrap.min.css");
 
+require("@fortawesome/fontawesome-free/css/all.min.css");
 export default {
   name: 'App',
   components: {
   //  Login
   }
+
 }
 </script>
 

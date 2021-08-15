@@ -65,7 +65,7 @@ export default {
 .side-btn.active {
     position: relative;
     background-color: white;
-    color: teal;
+    color: #1A237E;
     font-weight: 600;
     margin-left: 10px;
     border-radius: 30px 0 0 30px;
@@ -98,6 +98,6 @@ export default {
     height: 60px;
     width: 60px;
     border-radius: 50%;
-    background-color: teal;
+    background-color:#1A237E;
 }
 </style>
