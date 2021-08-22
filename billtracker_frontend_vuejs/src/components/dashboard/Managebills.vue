@@ -109,18 +109,18 @@
       </b-modal>
     </div>
 
-    <div class="row card" style="width: 70rem;">
+    <div class="row card con" style="">
       <h2 class="text-danger badge badge-warning" style="font-size:1rem">Manage Bills</h2>
       <div class="row">
         <div class="col-12">
            
-          <b-button v-b-modal.modal-1>Add Billing item</b-button>
+         <h6> <b-button v-b-modal.modal-1 class="btn  " >Add Billing item</b-button></h6>
         </div>
       </div>
 
       <div class="row">
-        <div class="col-12 ">
-          <table class="table">
+        <div class="col-xs-2 col-sm-4 col-xl-12 col-md-6 ">
+          <table class="table " style="overflow: scroll;overflow:hidden;">
              <thead>
               <tr>
                 <th>bill_id</th>
@@ -139,7 +139,7 @@
             </thead>
        
            
-            <tbody>
+            <tbody style="overflow: scroll;">
               <tr v-for="bill in bills" :key="bill.id">
                 <td>{{ bill.bill_id }}</td>
                 <td>{{ bill.user_id }}</td>
@@ -154,13 +154,13 @@
                 <td>{{ bill.billing_status }}</td>
                 <td>
                   <button
-                    class="btn btn-danger mr-2"
+                    class="btn btn-danger "
                     @click="deletebill(bill.bill_id)"
                   >
                     Delete
                   </button>
                   <button
-                    class="btn btn-success mr-2"
+                    class="btn btn-success ml-1"
                     @click="showbill(bill.bill_id)"
                   >
                     Edit
@@ -172,6 +172,58 @@
         </div>
       </div>
     </div>
+ 
+  
+    
+     <div class="row card con" style="">
+      <h2 class="text-danger badge badge-warning" style="font-size:1rem">Take action on  Upcoming and Pending Bills</h2>
+      
+
+      <div class="row">
+        <div class="col-xs-2 col-sm-4 col-xl-12 col-md-6 ">
+          <table class="table " style="overflow: scroll;">
+             <thead>
+              <tr>
+                <th>bill_id</th>
+                
+                <th>bill_name</th>
+                <th>bill_amount</th>
+                <th>bill_category</th>
+                <th>bill_cycle_date</th>
+                <th>bill_due_date</th>
+                
+                <!-- <th>created_at</th>
+                    <th>modified_at</th> -->
+                <th>billing_status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+       
+           
+            <tbody style="overflow: scroll;">
+              <tr v-for="bill in actionbills" :key="bill.id">
+                <td>{{ bill.id }}</td>
+            
+                <td>{{ bill.bill_name }}</td>
+                <td>{{ bill.bill_amount }}</td>
+                <td>{{ bill.category }}</td>
+                <td>{{ bill.bill_cycle_date }}</td>
+                <td>{{ bill.bill_due_date }}</td>
+                
+                <!-- <td>{{bill.created_at}}</td>
+                    <td>{{bill.modified_at}}</td> -->
+                <td>{{ bill.status }}</td>
+                <td>
+               <button class="btn btn-primary" @click="pendingup(bill.id)" type="button">Already Paid</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+
   </div>
 </template>
 
@@ -185,13 +237,14 @@ import billdataservice from "../../services/billdataservice";
   
 import axios from "axios";
 
-
+import configs from "../../services/config"
 
 export default {
   components: {},
   data() {
     return {
       bills: [],
+      actionbills:[],
       userid: null,
        billid: null,
       billname: "",
@@ -201,13 +254,7 @@ export default {
       bill_due_day: null,
       datevalue: null,
       billing_status: null,
-      options: [
-        // { value: null, text: "Please select an option", hidden: true },
-        // { value: "1", text: "category 1" },
-        // { value: "2", text: "category 2" },
-        // { value: "3", text: "category 3" },
-        // { value: "4", text: "category 4" },
-      ],
+      options: [],
       optionsday: [
         { value: null, text: "Please select an option",hidden:true,disabled:true },
         { value: 1, text: "1" },
@@ -246,16 +293,13 @@ export default {
     };
   },
   async created() {
-    this.showallbill();
-    
-  
-
-        const response = await axios.get("http://localhost:8000/api/bill/category");
+    const response = await axios.get((configs.appurl)+"/bill/category");
         console.log(response);
 
         this.options=response.data;
-  
-  
+    this.showallbill();
+    this.allbills();
+
   },
 
   setup() {
@@ -285,6 +329,26 @@ export default {
     return { state, v$ };
   },
   methods: {
+     async pendingup(billid){
+   const response = await axios.get(
+        configs.appurl + "/dashboard/status/"+billid
+      );
+      console.log(response);
+        this.showallbill();
+    this.allbills();
+
+    
+   },
+     async allbills(){
+        const response = await axios.get(
+        configs.appurl + "/dashboard/allactivebills2/"+localStorage.getItem("user")
+      );
+      console.log(response);
+     
+             this.actionbills = response.data;
+
+     }
+    ,
     showbill(id) {
       billdataservice
         .showbill(id)
@@ -317,7 +381,8 @@ export default {
             position: "top",
           });
 
-          this.showallbill();
+             this.showallbill();
+    this.allbills();
         })
         .catch((e) => {
           console.log(e);
@@ -361,14 +426,16 @@ export default {
           headers: { Authorization: `Bearer ${toke}` },
         };
         const response = await axios.post(
-          "http://localhost:8000/api/bill/create",
+          (configs.appurl)+`/bill/create`,
           data,
           config
         );
         console.log(response);
 
         this.$bvModal.hide("modal-1");
-        this.showallbill();
+        
+           this.showallbill();
+    this.allbills();
         this.$toast.open({
           message: "Billing item added successfully",
           type: "success",
@@ -398,7 +465,7 @@ export default {
           headers: { Authorization: `Bearer ${toke}` },
         };
         const response = await axios.post(
-          "http://localhost:8000/api/bill/edit",
+          (configs.appurl)+"/bill/edit",
           data,
           config
         );
@@ -442,6 +509,26 @@ table {
   border-collapse: collapse;
   width: 100%;
 }
+.btn-primary {
+    color: #fff;
+    background-color: #1A237E;
+    border-color: #1A237E;
+}
+.con{
+  margin-bottom: 100px;
+  width: 70rem;
+}
+@media only screen and (max-width: 600px) {
+ table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 25%;
+}
+.con{
+  width: 50rem;
+  margin-left:20px;
+}
+}
 
 td,
 th {
@@ -470,6 +557,7 @@ tr:nth-child(even) {
 }
 .managebills {
   display: flex;
+  flex-direction: column ;
   justify-content: center;
   align-items: center;
   height: 100%;
@@ -477,5 +565,9 @@ tr:nth-child(even) {
   font-size: 40px;
   color: rgb(167, 167, 167);
   font-weight: 600;
+}
+button{
+  padding:4px;
+  font-size:10px;
 }
 </style>

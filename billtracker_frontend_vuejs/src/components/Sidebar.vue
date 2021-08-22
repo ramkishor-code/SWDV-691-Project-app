@@ -3,7 +3,7 @@
         <div class="title">
             <!-- <button onclick="w3_close()" class="btn btn-dark">Close &times;</button> -->
         </div>
-        <div class="menu-items">
+        <div class="menu-items" style="height:100vh">
             <router-link to="/home" active-class="active" tag="button" exact class="side-btn">
                 <div class="link-container">
                     Home
@@ -20,9 +20,9 @@
                     & Calendar
                 </div>
             </router-link>
-            <router-link to="/settings" active-class="active" tag="button" exact class="side-btn">
+            <router-link to="/report" active-class="active" tag="button" exact class="side-btn">
                 <div class="link-container">
-                    Settings
+                  Reports
                 </div>
             </router-link>
         </div>
@@ -36,6 +36,11 @@ export default {
 </script>
 
 <style scoped>
+.sidebar{
+    margin-bottom: 4%;
+    height: 100%;
+    background-color:#1A237E;
+}
 .title {
     color: white;
     font-size: 24px;
@@ -46,6 +51,7 @@ export default {
     flex-direction: column;
     margin-top: 40px;
     margin-left: 6px;
+    
 }
 .menu-items > * {
     margin-top: 60px;
@@ -95,7 +101,7 @@ export default {
     position: absolute;
     content: "";
     right: 0px;
-    height: 60px;
+    height: +60px;
     width: 60px;
     border-radius: 50%;
     background-color:#1A237E;

@@ -1,10 +1,10 @@
 <template>
   <div class="a">
-    <!-- <h1>{{ msg }}</h1> -->
+  
 
     <div class="container-fluid">
       <div class="card border-0">
-        <div class="row d-flex">
+        <div class="row d-flex" style="margin-bottom:12%">
           <div class="col-lg-4">
             <div class="card1 pb-1">
               <div class="row">
@@ -19,23 +19,12 @@
           </div>
           <div class="col-lg-8">
             <div class="card2 card border-0 py-3">
-              <!-- <div class="row mb-4 px-3">
-                        <h6 class="mb-0 mr-4 mt-2">Sign in with</h6>
-                        <div class="facebook text-center mr-3">
-                            <div class="fa fa-facebook "></div>
-                        </div>
-                        <div class="twitter text-center mr-3">
-                            <div class="fa fa-twitter"></div>
-                        </div>
-                        <div class="linkedin text-center mr-3">
-                            <div class="fa fa-linkedin"></div>
-                        </div>
-                    </div> -->
+       
               <div class="row px-3 mb-3">
                 <strong class="text-center bg-blue p-4 mb-5">Register</strong>
-                <!-- <div class="line"></div> -->
+         
               </div>
-              <form @submit.prevent="handlesubmit">
+              <form @submit.stop.prevent="handlesubmit">
               <div class="row px-3">
                   <div class="col">
                  <label class="mb-1">
@@ -44,9 +33,13 @@
                 <input
                   class="mb-4"
                   type="text"
-                   v-model="fullname"
+                   v-model="state.fullname"
                   placeholder="Enter your full name"
                 />
+                 <span v-if="v$.fullname.$error" class="text-danger">
+               <p>Fullname is required</p>
+              </span>
+
                   </div>
                     <div class="col">
                           <label class="mb-1">
@@ -54,9 +47,13 @@
                 </label>
                 <input
                   type="text"
-                  v-model="pnumber"
+                  class="mb-4"
+                  v-model="state.pnumber"
                   placeholder="Enter valid phone number"
                 />
+                 <span v-if="v$.pnumber.$error" class="text-danger">
+               <p>Phone number is invalid</p>
+              </span>
                   </div>
                   
                   <div class="col">
@@ -66,9 +63,12 @@
                 <input
                   class="mb-4"
                   type="text"
-                  v-model="email"
+                  v-model="state.email"
                   placeholder="Enter a valid email address"
                 />
+                 <span v-if="v$.email.$error" class="text-danger">
+               <p>Email is required</p>
+              </span>
                   </div>
               </div>
               <div class="row px-3">
@@ -79,9 +79,12 @@
                 </label>
                 <input
                   type="password"
-                  v-model="password"
+                  v-model="state.password"
                   placeholder="Enter password"
                 />
+                 <span v-if="v$.password.$error" class="text-danger">
+               <p>password is required</p>
+              </span>
                   </div>
                     <div class="col">
                          <label class="mb-1">
@@ -89,36 +92,27 @@
                 </label>
                 <input
                   type="password"
-                  v-model="confpassword"
+                  v-model="state.confpassword"
                   placeholder="Enter password Again"
                 /> 
+                 <span v-if="v$.confpassword.$error" class="text-danger">
+               <p>Confirm Password is invalid </p>
+              </span>
                   </div>
               </div>
             
               <div class="row px-3 mb-4">
-                <!-- <div
-                  class="custom-control custom-checkbox custom-control-inline"
-                >
-                  <input
-                    id="chk1"
-                    type="checkbox"
-                    name="chk"
-                    class="custom-control-input"
-                  />
-                  <label for="chk1" class="custom-control-label text-sm"
-                    >Remember me</label
-                  >
-                </div> -->
-                <!-- <a href="#" class="ml-auto mb-0 text-sm">Forgot Password?</a> -->
+            
               </div>
               <div class="row mb-3 mt-5 px-3">
                 <button type="submit" class="btn btn-blue text-center">
                   Sign-Up
-                </button>
+                </button>&nbsp;&nbsp;
+                <button class="btn btn-blue text-center" @click="$router.push('/')">Back</button>
               </div>
               <div class="row mb-4 mt-3 px-3">
                 <small class="font-weight-bold"
-                  >Don't have an account?
+                  >Already have an account?
                   <router-link to="/login" class="text-danger"
                     >Sign-in</router-link
                   ></small
@@ -128,15 +122,15 @@
             </div>
           </div>
         </div>
-        <div class="bg-blue mt-4 p-4" style="margin: 0px">
-          <div class="row">
+        <div class="bg-blue mt-4 p-4"  >
+          <div class="row" style="margin: 0px">
             <div class="col-6">
               <small class="ml-auto mr-auto"
                 >Copyright &copy; 2021. All rights reserved.</small
               >
             </div>
             <div class="col-6">
-              <div class="">
+         <!--     <div class="">
                 <span
                   class="fa fa-facebook mr-5"
                   style="margin-right: 40px"
@@ -153,7 +147,7 @@
                   class="fa fa-twitter mr-4 mr-sm-5 text-sm"
                   style="margin-right: 40px"
                 ></span>
-              </div>
+              </div>-->
             </div>
           </div>
         </div>
@@ -164,23 +158,69 @@
 
 <script>
 import axios from 'axios'
+import configs from "../services/config"
+import useValidate from "@vuelidate/core";
+import { required,numeric } from "@vuelidate/validators";
+import { reactive, computed } from "@vue/composition-api";
+
 export default {
     
   name: "Register",
+    data(){
+      return {
+          email:null,
+          password:null,
+          fullname:null,
+          confpassword:null,
+          pnumber:null
+
+        }
+ 
+  },
+    setup() {
+    const state = reactive({
+       email:null,
+          password:null,
+          fullname:null,
+          confpassword:null,
+          pnumber:null
+
+    });
+    const rules = computed(() => {
+      return {
+        email: { required },
+         fullname:{ required },
+        password: { required },
+        confpassword:{ required },
+          pnumber:{ required,numeric,maxLength: 10, }
+     
+      };
+    });
+
+    const v$ = useValidate(rules, state);
+
+    return { state, v$ };
+  },
+  
   methods:{
      async handlesubmit(){
-          const data= await axios.post('http://localhost:8000/api/auth/signup',{
-              "name":this.fullname,
-                "email":this.email,
-              "password":this.password,
-              "phone_number":this.pnumber
+
+       this.v$.$validate(); // checks all inputs
+      if (!this.v$.$error) {
+          const data= await axios.post((configs.appurl)+'/auth/signup',{
+              "name":this.state.fullname,
+                "email":this.state.email,
+              "password":this.state.password,
+              "phone_number":this.state.pnumber
           });
           console.log(data);
            this.$router.push('/login');
       }
+     }
   }
 };
 </script>
+
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
@@ -217,7 +257,7 @@ body {
 
 .card0 {
   box-shadow: 0px 4px 8px 0px #757575;
-  border-radius: 0px;
+  border-radius: 10px;
 }
 
 .card2 {

@@ -6,7 +6,7 @@
     
         <div class="container-fluid  ">
     <div class="card border-0">
-        <div class="row d-flex ex">
+        <div class="row d-flex " style="margin-bottom:15%">
             <div class="col-lg-6">
                 <div class="card1 pb-1">
                     <div class="row"> <img alt="Vue logo" src="../assets/logo.png" class="logo"> </div>
@@ -31,27 +31,57 @@
                        <strong class="text-center bg-blue p-4 mb-5 ">Login</strong> 
                         <!-- <div class="line"></div> -->
                     </div>
-                    <form @submit.prevent="handlesubmit">
+                    <form @submit.stop.prevent="handlesubmit">
                     <div class="row px-3"> <label class="mb-1">
                             <h6 class="mb-0 text-sm">Email Address</h6>
-                        </label> <input class="mb-4" type="text" v-model="email" placeholder="Enter a valid email address"> </div>
+                        </label> <input class="mb-4" type="text" v-model="state.email" placeholder="Enter a valid email address">
+                          <span v-if="v$.email.$error" class="text-danger">
+               <p>Email is required</p>
+              </span>
+                         </div>
                     <div class="row px-3"> <label class="mb-1">
                             <h6 class="mb-0 text-sm">Password</h6>
-                        </label> <input type="password" v-model="password" placeholder="Enter password"> </div>
+                        </label> <input type="password" v-model="state.password" placeholder="Enter password">
+                            <span v-if="v$.password.$error" class="text-danger">
+                                  <p>Password is required</p>
+                           </span>
+
+                         </div>
                     <!-- <div class="row px-3 mb-4">
                         <div class="custom-control custom-checkbox custom-control-inline"> <input id="chk1" type="checkbox" name="chk" class="custom-control-input"> <label for="chk1" class="custom-control-label text-sm">Remember me</label> </div> <a href="#" class="ml-auto mb-0 text-sm">Forgot Password?</a>
                     </div> -->
-                    <div class="row mb-3 mt-5 px-3"> <button type="submit" class="btn btn-blue text-center">Login</button> </div>
+                    <div class="row mb-3 mt-5 px-3">
+                    <div class="col-6">
+                      <button type="submit" class="btn btn-blue  text-center">Login</button>
+                    </div>
+                    <div class="col-6">
+                    <button class="btn btn-blue text-center" @click="$router.push('/')">Back</button>
+              
+                    </div>
+                    
+                   
+                      
+                      </div>
+                    
                     <div class="row mb-4 px-3"> <small class="font-weight-bold">Don't have an account? <router-link to="/register"  class="text-danger ">Register</router-link></small> </div>
                </form>
                 </div>
             </div>
         </div>
-         <div class="bg-blue mt-5  p-4" >
+         <div class="bg-blue   p-4" style=""  >
             <div class="row">
               <div class="col-6"><small class="ml-auto mr-auto">Copyright &copy; 2021. All rights reserved.</small></div>
               <div class="col-6"> 
-                 <div class=""> <span class="fa fa-facebook mr-5 " style="margin-right:40px"></span> <span class="fa fa-google-plus mr-4 " style="margin-right:40px"></span> <span class="fa fa-linkedin mr-4 text-sm" style="margin-right:40px"></span> <span class="fa fa-twitter mr-4 mr-sm-5 text-sm" style="margin-right:40px"></span> </div>
+           <!--      <div class="">
+                  <span class="fa fa-facebook mr-5 " style="margin-right:40px">
+                  </span>
+                   <span class="fa fa-google-plus mr-4 " style="margin-right:40px">
+                   </span>
+                    <span class="fa fa-linkedin mr-4 text-sm" style="margin-right:40px">
+                    </span>
+                     <span class="fa fa-twitter mr-4 mr-sm-5 text-sm" style="margin-right:40px">
+                     </span> 
+                     </div> -->
                 </div> 
                
             </div>
@@ -65,40 +95,75 @@
 
 <script>
 import axios from 'axios' 
+
+
+import useValidate from "@vuelidate/core";
+import { required } from "@vuelidate/validators";
+import { reactive, computed } from "@vue/composition-api";
+
+import configs from "../services/config"
 export default {
   name: 'Login',
   props: {
     msg: String
   },
+  data(){
+      return {
+          email:null,
+          password:null
+        }
+ 
+  },
+    setup() {
+    const state = reactive({
+       email:null,
+        password:null,
+    });
+    const rules = computed(() => {
+      return {
+        email: { required },
+        password: { required },
+     
+      };
+    });
+
+    const v$ = useValidate(rules, state);
+
+    return { state, v$ };
+  },
+  
  methods: {
 
    async  handlesubmit(){
-         
-    //console.log(data);
-     const response = await axios.post('http://localhost:8000/api/auth/login', {
-             "email":this.email,
-             "password":this.password
+          this.v$.$validate(); // checks all inputs
+      if (!this.v$.$error) {
+   
+     const response = await axios.post((configs.appurl)+'/auth/login', {
+             "email":this.state.email,
+             "password":this.state.password
          });
      //console.log(response);
     // console.log(response.data.access_token)
        localStorage.setItem('token',JSON.stringify(response.data.access_token))
-       const toke="eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYTQwYTM1ODg5MmU2MWM4ZjNjYzRhNzI1YjQzOTVlMjEzMWJiNWI3NDFmYjQzMWMzYmU2ZTdjMTRmOGZmYjU3ODE3NWQzZGNlNWRlMTdlNTYiLCJpYXQiOjE2Mjg0MDU1MzcsIm5iZiI6MTYyODQwNTUzNywiZXhwIjoxNjU5OTQxNTM3LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.o5sBufXxuKUu7AiU8LVTIVrqCMCdpIsEvv31d0PXsNr8oM7QW18ZYwYDkCLycVaCB8Qy6hK4Hf8V5y_yCQTYJ2PSt4e2TYO6LfqE_bmpbBeZeZI2plrHDMJq3SV86zWuh__WVu4sFsrD2McJuWZCA3DDRQBWzGiA-WOsb1qqRXCU7pw8KPjpVeGDa5Zl7KFgWohi7cn7lOZ-5CnfVL7pg8Sd8Njx4VZ7reM4SjcKlTtS3OS8xUHBt5uDMrkWO5NxureKoAvSQGH-DnlpSFO0gnj4D6xYgE4tpTO-PWr38B9M0A45oCo4L384h4tnG8WUiU3N3AsG4GCIwK_1U3x8_CszET8jN6ii5ez7nopirNyExeeSHnBCYGkqy9Q7PJBObP1qk-7rACmCZnz3FGudFqnNqcMv0OENQuwTnVcxeN3CSpp9DrvRAXroC4vyATNUCtzmugK-DIY_BH3apdFI-Y-L4sbXCxXLOtIPVxTjqnHWUf-BNcMGnltGhxKkugKN4xtgnD_dM9nd5Hhe0ZBp-lKIJBIBkevm2ypyGBXmutjHJ0U-dzkCbSiFC0CRIzhHZNsDVAn0VqBrGUZiC2OIAwa1_qkPhquTcKXdzHKQhiAClBGddW9HQnVnFpWtZbAGm1Hc-pspt4hqtDRAe82vtkF7M-nKQ-LrSu8i5_fRCcc";
+      
         // const config = {
         //              headers: { Authorization: `Bearer ${toke}` }
         //                 };
-       const res = await axios('http://localhost:8000/api/user',{
+       const res = await axios((configs.appurl)+'/user/'+this.state.email,{
            method: 'GET',
-      mode: 'no-cors',
-      credentials: 'same-origin', 
-           headers:
-        {"Authorization" : `Bearer ${toke}`,
+           headers:{
          'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json',} });
-       localStorage.setItem('user',res.data.id)
-       localStorage.setItem('username',res.data.name)
-       console.log(res.data.name)
+        'Content-Type': 'application/json',
+        } 
+        });
+
+        
+       localStorage.setItem('user',res.data[0].id)
+       localStorage.setItem('username',res.data[0].name)
+       console.log(res.data)
      this.$router.push('/home');
      }
+   }
      
 
   }
@@ -118,9 +183,7 @@ export default {
   
   
 }
-.ex{
-height: 80vh;
-}
+
 h3 {
   margin: 40px 0 0;
 }

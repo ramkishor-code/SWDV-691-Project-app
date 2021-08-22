@@ -11,33 +11,75 @@ Vue.use(Router)
  
 
 
-export default new Router({
+
+const router= new Router({
     mode: 'history',
     base: process.env.BASE_URL,
     routes:[
-        {path:'/',component:Login},
-        {path:'/login',component:Login},
-        {path:'/register',component:Register},
-        {path:'/dashhome',
-         component:dashhome,
+        
+       {
+         name:'homepage',
+         path:'/',
+         component: () => import(/* webpackChunkName: "Messages" */ './components/homepage.vue'),
+         beforeEnter: guest
+        },
+      {
+          name:'Login',
+          path:'/login',
+          component:Login,
+          beforeEnter: guest
+        },
+      
+        {
+          path:'/register',
+          component:Register,
+          beforeEnter: guest
+        },
+        {
+          name:'dashhome',
+          path:'/dashhome',
+          component: dashhome,
+         beforeEnter: guard,
          children: [
             {
               path: '/home',
-              component:home
+              component:home,
+              beforeEnter: guard,
+            
+           
             },
             {
               path: '/managebills',
-              component: () => import(/* webpackChunkName: "Messages" */ './components/dashboard/Managebills.vue')
+              component: () => import(/* webpackChunkName: "Messages" */ './components/dashboard/Managebills.vue'),
+              beforeEnter: guard,
             },
             {
               path: '/billingevents',
-              component: () => import(/* webpackChunkName: "Profile" */ './components/dashboard/billingevents.vue')
+              component: () => import(/* webpackChunkName: "Profile" */ './components/dashboard/billingevents.vue'),
+              beforeEnter: guard,
             },
             {
-              path: '/settings',
-              component: () => import(/* webpackChunkName: "Settings" */ './components/dashboard/Settings.vue')
+              path: '/report',
+              component: () => import(/* webpackChunkName: "Settings" */ './components/dashboard/report.vue'),
+              beforeEnter: guard,
             }
           ]
         }
     ]
 })
+
+
+
+function guest(to, from, next) {
+  if (localStorage.user) {
+    next({ path: "/home" });
+  } else next();
+}
+
+function guard(to, from, next) {
+  if (localStorage.user) {
+    next();
+  } else next({ path: "/" });
+}
+
+export default router

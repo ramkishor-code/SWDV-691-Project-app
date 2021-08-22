@@ -12,8 +12,8 @@
             Welcome! {{this.username}}
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">Home</a></li>
-            <li> <router-link to="/" class="dropdown-item" href="#">Logout</router-link></li>
+                <li><a class="dropdown-item" href="/home">Home</a></li>
+            <li  @click="greet"> <router-link to="/" class="dropdown-item"  href="#">Logout</router-link></li>
           
         
           </ul>
@@ -43,6 +43,18 @@ export default {
        username:localStorage.getItem("username"),
       }
       
+  },
+  methods:{
+      greet(event) {
+   
+     
+      
+      // `event` is the native DOM event
+      if (event) {
+localStorage.removeItem("user");
+this.$router.push('/login');
+      }
+    }
   }
 }
 </script>
