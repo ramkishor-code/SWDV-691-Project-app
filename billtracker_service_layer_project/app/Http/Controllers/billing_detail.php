@@ -49,16 +49,21 @@ class billing_detail extends Controller
       $timestamp    = strtotime($date);
     
       $due_date = date(''.$req->bill_due_day.'-m-Y ', $timestamp);
+      $cycle_date = date(''.$req->bill_cycle_day.'-m-Y ', $timestamp);
       $date=date_create($due_date);
       $due_date= date_format($date,"Y-m-d");
 
+      $date3=date_create($cycle_date);
+      $cycle_date= date_format($date3,"Y-m-d");
+
       $today=Carbon::today('America/Los_Angeles');
-    if($today<$due_date){
+    if(true){
         $data=[
             'bill_id'=>$result,
             'user_id'=>$req->user_id,
             'status'=>$req->billing_status,
-            'bill_due_date'=> $due_date
+            'bill_due_date'=> $due_date,
+            'bill_cycle_date'=>$cycle_date
       
           ];
                 $result1=DB::table('pending_bills')->insertGetId($data);

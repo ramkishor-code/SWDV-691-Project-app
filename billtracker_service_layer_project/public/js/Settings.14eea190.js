@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["Settings"],{"0bc2":function(t,n,e){"use strict";e.r(n);var s=function(){var t=this,n=t.$createElement,e=t._self._c||n;return e("div",{staticClass:"report"},[t._v(" Report ")])},c=[],i={},r=i,a=(e("354a"),e("2877")),o=Object(a["a"])(r,s,c,!1,null,"0d2bfd41",null);n["default"]=o.exports},"354a":function(t,n,e){"use strict";e("365b")},"365b":function(t,n,e){}}]);
+//# sourceMappingURL=Settings.14eea190.js.map
