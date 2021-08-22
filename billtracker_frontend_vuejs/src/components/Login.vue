@@ -149,6 +149,15 @@ export default {
         // const config = {
         //              headers: { Authorization: `Bearer ${toke}` }
         //                 };
+        if(response.data.result===0){
+            this.$toast.open({
+            message: "failed to login",
+            type: "error",
+            position: "top",
+          });
+            return response;
+            
+        }else{
        const res = await axios((configs.appurl)+'/user/'+this.state.email,{
            method: 'GET',
            headers:{
@@ -163,6 +172,7 @@ export default {
        console.log(res.data)
      this.$router.push('/home');
      }
+      }
    }
      
 
